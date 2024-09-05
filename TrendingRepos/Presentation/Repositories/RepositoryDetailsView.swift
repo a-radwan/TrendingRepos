@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RepositoryDetailsView: View {
     var repository: Repository
-    @ObservedObject private var viewModel = RepositoryDetailsViewModel()
+    @ObservedObject var viewModel: RepositoryDetailsViewModel
     
     var body: some View {
         ScrollView {
@@ -97,7 +97,6 @@ struct RepositoryDetailsView: View {
                         switch result {
                         case .success(let isFavorite):
                             break
-//                            viewModel.isFavorite = isFavorite
                         case .failure(let error):
                             print("Error toggling favorite: \(error)")
                         }
@@ -128,7 +127,7 @@ struct RepositoryDetailsView: View {
             language: "Swift",
             createdAt: Date(),
             htmlURL: "https://github.com/johnDoe/SampleRepo"
-        )
+        ), viewModel: RepositoryDetailsViewModel(isFavorite: false)
     )
 }
 private let dateFormatter: DateFormatter = {

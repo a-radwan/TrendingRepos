@@ -13,7 +13,7 @@ struct RepositoriesTab: View {
     @StateObject private var viewModel = RepositoriesViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Picker("Date Filter", selection: $viewModel.selectedDateFilter) {
                     ForEach(DateFilter.allCases, id: \.self) { filter in
@@ -76,7 +76,9 @@ struct RepositoriesTab: View {
                     
                 } else {
                     List(viewModel.repositories) { repository in
-                        NavigationLink(destination: RepositoryDetailsView(repository: repository)) {
+                        let detailsViewModel = RepositoryDetailsViewModel()
+
+                        NavigationLink(destination: RepositoryDetailsView(repository: repository, viewModel: detailsViewModel)) {
                             RepositoryRow(repository: repository)
                         }
                     }

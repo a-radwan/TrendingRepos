@@ -24,7 +24,6 @@ struct Repository: Codable, Identifiable {
     let language: String?
     let createdAt: Date
     let htmlURL: String
-    var isFavorite: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case id, owner, name, description, language

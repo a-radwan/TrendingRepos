@@ -18,6 +18,7 @@
 		EC54AB7D2C88DD5A004A1263 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB7A2C88DD5A004A1263 /* NetworkManager.swift */; };
 		EC54AB7F2C88EED5004A1263 /* RepositoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB7E2C88EED5004A1263 /* RepositoriesManager.swift */; };
 		EC54AB832C893C37004A1263 /* RepositoryDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB822C893C37004A1263 /* RepositoryDetailsViewModel.swift */; };
+		EC54AB892C8A4FD1004A1263 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB882C8A4FD1004A1263 /* FavoritesViewModel.swift */; };
 		ECE1D06A2C864D4F00031AFB /* TrendingReposApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE1D0692C864D4F00031AFB /* TrendingReposApp.swift */; };
 		ECE1D06E2C864D5000031AFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECE1D06D2C864D5000031AFB /* Assets.xcassets */; };
 		ECE1D0712C864D5000031AFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECE1D0702C864D5000031AFB /* Preview Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		EC54AB7A2C88DD5A004A1263 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EC54AB7E2C88EED5004A1263 /* RepositoriesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesManager.swift; sourceTree = "<group>"; };
 		EC54AB822C893C37004A1263 /* RepositoryDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsViewModel.swift; sourceTree = "<group>"; };
+		EC54AB882C8A4FD1004A1263 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		ECE1D0662C864D4F00031AFB /* TrendingRepos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrendingRepos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE1D0692C864D4F00031AFB /* TrendingReposApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingReposApp.swift; sourceTree = "<group>"; };
 		ECE1D06D2C864D5000031AFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				EC54AB6B2C88DD45004A1263 /* FavoriteTab.swift */,
+				EC54AB882C8A4FD1004A1263 /* FavoritesViewModel.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC54AB892C8A4FD1004A1263 /* FavoritesViewModel.swift in Sources */,
 				EC54AB832C893C37004A1263 /* RepositoryDetailsViewModel.swift in Sources */,
 				EC54AB7C2C88DD5A004A1263 /* GithubService.swift in Sources */,
 				ECE1D0732C864D5000031AFB /* Persistence.swift in Sources */,

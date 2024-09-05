@@ -16,7 +16,7 @@ struct HomeView: View {
                     Text("Trending")
                 }
             
-            FavoriteTab()
+            FavoritesTab()
                 .tabItem {
                     Image(systemName: "heart")
                     Text("Favorites")
