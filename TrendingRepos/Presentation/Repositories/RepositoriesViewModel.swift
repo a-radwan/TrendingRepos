@@ -32,7 +32,6 @@ enum DateFilter: String, CaseIterable {
     }
 }
 
-
 class RepositoriesViewModel: ObservableObject {
     @Published var searchText: String = "" {
         didSet {
@@ -64,7 +63,6 @@ class RepositoriesViewModel: ObservableObject {
         fetchData()
     }
     
-    
     private func fetchData() {
         isLoading = true
         error = nil
@@ -83,6 +81,4 @@ class RepositoriesViewModel: ObservableObject {
             }
         }
     }
-    
 }
-

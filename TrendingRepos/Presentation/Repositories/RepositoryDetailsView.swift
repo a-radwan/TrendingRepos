@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RepositoryDetailsView: View {
-    let repository: Repository
-    @State private var isFavorite = false
+    var repository: Repository
+    @ObservedObject private var viewModel = RepositoryDetailsViewModel()
     
     var body: some View {
         ScrollView {
@@ -93,15 +93,27 @@ struct RepositoryDetailsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    isFavorite.toggle()
+                    viewModel.toggleFavorite(repository: repository) { result in
+                        switch result {
+                        case .success(let isFavorite):
+                            break
+//                            viewModel.isFavorite = isFavorite
+                        case .failure(let error):
+                            print("Error toggling favorite: \(error)")
+                        }
+                    }
                 }) {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                        .foregroundColor(isFavorite ? .red : .gray)
+                    Image(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+                        .foregroundColor(viewModel.isFavorite ? .red : .gray)
                 }
             }
         }
+        .onAppear {
+            viewModel.checkIfFavorite(repository: repository)
+        }
     }
 }
+
 
 #Preview {
     
