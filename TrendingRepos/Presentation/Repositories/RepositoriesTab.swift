@@ -55,7 +55,6 @@ struct RepositoriesTab: View {
                     }
                     .padding()
                     Spacer()
-                    
                 } else if viewModel.repositories.isEmpty {
                     // Show empty data view
                     Spacer()
@@ -73,13 +72,40 @@ struct RepositoriesTab: View {
                     }
                     .padding()
                     Spacer()
-                    
                 } else {
-                    List(viewModel.repositories) { repository in
-                        let detailsViewModel = RepositoryDetailsViewModel()
-
-                        NavigationLink(destination: RepositoryDetailsView(repository: repository, viewModel: detailsViewModel)) {
-                            RepositoryRow(repository: repository)
+                    List {
+                        ForEach(viewModel.repositories.indices, id: \.self) { index in
+                            let repository = viewModel.repositories[index]
+                            let detailsViewModel = RepositoryDetailsViewModel()
+                            
+                            NavigationLink(destination: RepositoryDetailsView(repository: repository, viewModel: detailsViewModel)) {
+                                RepositoryRow(repository: repository)
+                            }
+                            .onAppear {
+                                // Load next page when the last item appears
+                                if index == viewModel.repositories.count - 1 {
+                                    viewModel.fetchNextPage()
+                                }
+                            }
+                        }
+                        if viewModel.isFetchingNextPage {
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                    .id(UUID())
+                                Spacer()
+                            }
+                            .listRowSeparator(.hidden)
+                        } else if !viewModel.hasMoreData {
+                            HStack {
+                                Spacer()
+                                Text("No more repositories")
+                                    .font(.footnote)
+                                    .foregroundColor(.gray)
+                                    .padding()
+                                Spacer()
+                            }
+                            .listRowSeparator(.hidden)
                         }
                     }
                     .listStyle(.plain)
@@ -90,6 +116,7 @@ struct RepositoriesTab: View {
         }
     }
 }
+
 
 
 struct RepositoryRow: View {

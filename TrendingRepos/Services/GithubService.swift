@@ -15,6 +15,8 @@ class GitHubService {
     
     func fetchRepositories(searchText: String? = nil,
                            dateFilter: DateFilter,
+                           page: Int = 1,
+                           perPage: Int = 20,
                            completion: @escaping (Result<[Repository], NetworkError>) -> Void) {
         
         let endPoint = "/search/repositories"
@@ -27,7 +29,9 @@ class GitHubService {
         let parameters = [
             "q": queryParameter,
             "sort": "stars",
-            "order": "desc"
+            "order": "desc",
+            "page": String(page),
+            "per_page": String(perPage)
         ]
         
         NetworkManager.shared.request(endpoint: endPoint,
@@ -41,3 +45,5 @@ class GitHubService {
         }
     }
 }
+
+

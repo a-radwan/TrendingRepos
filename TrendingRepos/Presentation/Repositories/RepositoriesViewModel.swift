@@ -35,49 +35,73 @@ enum DateFilter: String, CaseIterable {
 class RepositoriesViewModel: ObservableObject {
     @Published var searchText: String = "" {
         didSet {
-            fetchData()
+            resetAndFetchData()
         }
     }
     @Published var selectedDateFilter: DateFilter = .lastDay {
         didSet {
-            fetchData()
+            resetAndFetchData()
         }
     }
     @Published var repositories: [Repository] = []
     @Published var isLoading: Bool = false
+    @Published var isFetchingNextPage: Bool = false
+    @Published var hasMoreData: Bool = true
     @Published var errorMessage: String? = nil
     
-    var error: Error? = nil {
-        didSet {
-            self.errorMessage = error?.localizedDescription
-        }
-    }
+    private var page = 1
+    private let perPage = 20
     
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        fetchData()
+        loadRepositories()
+    }
+    
+    private func resetAndFetchData() {
+        repositories.removeAll()
+        page = 1
+        hasMoreData = true
+        loadRepositories()
     }
     
     func loadRepositories() {
-        fetchData()
-    }
-    
-    private func fetchData() {
-        isLoading = true
-        error = nil
+        guard !isLoading, hasMoreData else { return }
         
-        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter) { [weak self] result in
+        isLoading = true
+        errorMessage = nil
+        
+        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: page, perPage: perPage) { [weak self] result in
             guard let self = self else { return }
-            
             self.isLoading = false
             
             switch result {
             case .success(let repositories):
-                self.repositories = repositories
+                self.repositories.append(contentsOf: repositories)
+                self.hasMoreData = repositories.count == self.perPage
+                self.page += 1
             case .failure(let error):
-                self.error = error
-                print("Error fetching repositories: \(error)")
+                self.errorMessage = error.localizedDescription
+                self.hasMoreData = false
+            }
+        }
+    }
+    
+    func fetchNextPage() {
+        guard !isFetchingNextPage, hasMoreData else { return }
+        
+        isFetchingNextPage = true
+        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: page, perPage: perPage) { [weak self] result in
+            guard let self = self else { return }
+            self.isFetchingNextPage = false
+            
+            switch result {
+            case .success(let repositories):
+                self.repositories.append(contentsOf: repositories)
+                self.hasMoreData = repositories.count == self.perPage
+                self.page += 1
+            case .failure(let error):
+                self.hasMoreData = true
             }
         }
     }
