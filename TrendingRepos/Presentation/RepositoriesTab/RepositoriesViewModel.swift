@@ -22,6 +22,7 @@ class RepositoriesViewModel: ObservableObject {
     @Published var hasMoreData: Bool = true
     @Published var errorMessage: String? = nil
     
+    //Paging
     private var currentPage = 1
     private let pageSize = 30
     private var totalCount: Int = 0
@@ -30,7 +31,7 @@ class RepositoriesViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     private let gitHubService: GitHubServiceProtocol
-
+    
     init(gitHubService: GitHubServiceProtocol = GitHubService.shared) {
         self.gitHubService = gitHubService
         Task {
@@ -38,9 +39,8 @@ class RepositoriesViewModel: ObservableObject {
             didLoadInitialData = true
         }
         setupSearchDebounce()
-
+        
     }
-
     
     // Set up search text debouncing
     private func setupSearchDebounce() {
@@ -67,7 +67,7 @@ class RepositoriesViewModel: ObservableObject {
     }
     
     func loadRepositories() async {
-
+        
         guard !isLoading else { return }
         
         isLoading = true

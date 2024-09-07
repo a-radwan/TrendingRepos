@@ -8,6 +8,7 @@
 import Foundation
 
 class RepositoryDetailsViewModel: ObservableObject {
+    
     @Published var isFavorite: Bool
     
     private let repositoriesManager = RepositoriesManager.shared
@@ -21,7 +22,6 @@ class RepositoryDetailsViewModel: ObservableObject {
     }
     
     func toggleFavorite(repository: Repository, completion: @escaping (Result<Bool, Error>) -> Void) {
-        
         
         if isFavorite {
             self.isFavorite = false

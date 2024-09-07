@@ -123,8 +123,8 @@
 		EC4BAE692C8D051A00A68EB4 /* UIUtils */ = {
 			isa = PBXGroup;
 			children = (
-				EC4BAE6A2C8D052300A68EB4 /* UIImage+Resized.swift */,
 				EC54AB8D2C8CADAD004A1263 /* CircularPlaceholderImage.swift */,
+				EC4BAE6A2C8D052300A68EB4 /* UIImage+Resized.swift */,
 			);
 			path = UIUtils;
 			sourceTree = "<group>";
@@ -158,8 +158,8 @@
 		EC54AB722C88DD45004A1263 /* RepositoriesTab */ = {
 			isa = PBXGroup;
 			children = (
-				EC54AB702C88DD45004A1263 /* RepositoriesViewModel.swift */,
 				EC4BAE662C8D018300A68EB4 /* DateFilter.swift */,
+				EC54AB702C88DD45004A1263 /* RepositoriesViewModel.swift */,
 				EC54AB6F2C88DD45004A1263 /* RepositoriesTab.swift */,
 				EC54AB8F2C8CB159004A1263 /* RepositoryRowView.swift */,
 			);
@@ -182,7 +182,6 @@
 		EC54AB7B2C88DD5A004A1263 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				EC54AB662C88D77A004A1263 /* APIConstants.swift */,
 				EC54AB792C88DD5A004A1263 /* GithubService.swift */,
 			);
 			path = Services;
@@ -208,6 +207,7 @@
 		EC54AB962C8CD964004A1263 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				EC54AB662C88D77A004A1263 /* APIConstants.swift */,
 				EC54AB932C8CD86D004A1263 /* NetworkManager */,
 				EC54AB7B2C88DD5A004A1263 /* Services */,
 				EC54AB692C88DD3D004A1263 /* Models */,

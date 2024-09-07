@@ -5,7 +5,6 @@
 //  Created by Ahd on 9/4/24.
 //
 import Foundation
-import Combine
 
 class RepositoriesManager: ObservableObject {
     
@@ -16,9 +15,7 @@ class RepositoriesManager: ObservableObject {
     
     private let coreDataManager = PersistenceController.shared
     private let gitHubService = GitHubService.shared
-    
-    private var cancellables = Set<AnyCancellable>()
-    
+        
     init() {
         fetchFavorites()
     }

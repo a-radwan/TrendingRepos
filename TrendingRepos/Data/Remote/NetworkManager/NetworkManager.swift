@@ -42,7 +42,7 @@ class NetworkManager: NetworkManagingProtocol {
         
         var request = URLRequest(url: urlComponents.url!)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("token \(AuthToken)", forHTTPHeaderField: "Authorization")
+//        request.setValue("token \(AuthToken)", forHTTPHeaderField: "Authorization")
         
         let (data, response) = try await session.data(for: request)
         
