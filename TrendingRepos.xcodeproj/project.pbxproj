@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EC54AB672C88D77A004A1263 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB662C88D77A004A1263 /* Constants.swift */; };
+		EC54AB672C88D77A004A1263 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB662C88D77A004A1263 /* APIConstants.swift */; };
 		EC54AB6A2C88DD3D004A1263 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB682C88DD3D004A1263 /* Repository.swift */; };
 		EC54AB742C88DD45004A1263 /* FavoriteTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB6B2C88DD45004A1263 /* FavoriteTab.swift */; };
 		EC54AB752C88DD45004A1263 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB6D2C88DD45004A1263 /* HomeView.swift */; };
@@ -50,7 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EC54AB662C88D77A004A1263 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EC54AB662C88D77A004A1263 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		EC54AB682C88DD3D004A1263 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		EC54AB6B2C88DD45004A1263 /* FavoriteTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTab.swift; sourceTree = "<group>"; };
 		EC54AB6D2C88DD45004A1263 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -103,19 +103,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EC54AB692C88DD3D004A1263 /* Data */ = {
+		EC54AB692C88DD3D004A1263 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				EC54AB682C88DD3D004A1263 /* Repository.swift */,
 			);
-			path = Data;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		EC54AB6C2C88DD45004A1263 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				EC54AB6B2C88DD45004A1263 /* FavoriteTab.swift */,
+				EC54AB7E2C88EED5004A1263 /* RepositoriesManager.swift */,
 				EC54AB882C8A4FD1004A1263 /* FavoritesViewModel.swift */,
+				EC54AB6B2C88DD45004A1263 /* FavoriteTab.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -132,12 +133,10 @@
 			isa = PBXGroup;
 			children = (
 				EC54AB702C88DD45004A1263 /* RepositoriesViewModel.swift */,
-				EC54AB8F2C8CB159004A1263 /* RepositoryRowView.swift */,
 				EC54AB6F2C88DD45004A1263 /* RepositoriesTab.swift */,
-				EC54AB7E2C88EED5004A1263 /* RepositoriesManager.swift */,
+				EC54AB8F2C8CB159004A1263 /* RepositoryRowView.swift */,
 				EC54AB822C893C37004A1263 /* RepositoryDetailsViewModel.swift */,
 				EC54AB712C88DD45004A1263 /* RepositoryDetailsView.swift */,
-				EC54AB8D2C8CADAD004A1263 /* CircularPlaceholderImage.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -148,6 +147,7 @@
 				EC54AB6E2C88DD45004A1263 /* Home */,
 				EC54AB722C88DD45004A1263 /* Repositories */,
 				EC54AB6C2C88DD45004A1263 /* Favorites */,
+				EC54AB912C8CD7E2004A1263 /* UIComponenets */,
 			);
 			name = Presentation;
 			path = TrendingRepos/Presentation;
@@ -156,11 +156,62 @@
 		EC54AB7B2C88DD5A004A1263 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				EC54AB662C88D77A004A1263 /* Constants.swift */,
+				EC54AB662C88D77A004A1263 /* APIConstants.swift */,
 				EC54AB792C88DD5A004A1263 /* GithubService.swift */,
-				EC54AB7A2C88DD5A004A1263 /* NetworkManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		EC54AB912C8CD7E2004A1263 /* UIComponenets */ = {
+			isa = PBXGroup;
+			children = (
+				EC54AB8D2C8CADAD004A1263 /* CircularPlaceholderImage.swift */,
+			);
+			path = UIComponenets;
+			sourceTree = "<group>";
+		};
+		EC54AB932C8CD86D004A1263 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				EC54AB7A2C88DD5A004A1263 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		EC54AB952C8CD95B004A1263 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				EC54AB972C8CD975004A1263 /* Local */,
+				EC54AB962C8CD964004A1263 /* Remote */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		EC54AB962C8CD964004A1263 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				EC54AB932C8CD86D004A1263 /* NetworkManager */,
+				EC54AB7B2C88DD5A004A1263 /* Services */,
+				EC54AB692C88DD3D004A1263 /* Models */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		EC54AB972C8CD975004A1263 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				ECE1D0722C864D5000031AFB /* Persistence.swift */,
+				ECE1D0742C864D5000031AFB /* TrendingRepos.xcdatamodeld */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		EC54AB982C8CD99D004A1263 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ECE1D06D2C864D5000031AFB /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		ECE1D05D2C864D4F00031AFB = {
@@ -186,13 +237,10 @@
 		ECE1D0682C864D4F00031AFB /* TrendingRepos */ = {
 			isa = PBXGroup;
 			children = (
-				EC54AB692C88DD3D004A1263 /* Data */,
+				EC54AB982C8CD99D004A1263 /* Resources */,
+				EC54AB952C8CD95B004A1263 /* Data */,
 				EC54AB732C88DD45004A1263 /* Presentation */,
-				EC54AB7B2C88DD5A004A1263 /* Services */,
 				ECE1D0692C864D4F00031AFB /* TrendingReposApp.swift */,
-				ECE1D06D2C864D5000031AFB /* Assets.xcassets */,
-				ECE1D0722C864D5000031AFB /* Persistence.swift */,
-				ECE1D0742C864D5000031AFB /* TrendingRepos.xcdatamodeld */,
 				ECE1D06F2C864D5000031AFB /* Preview Content */,
 			);
 			path = TrendingRepos;
@@ -374,7 +422,7 @@
 				EC54AB782C88DD45004A1263 /* RepositoryDetailsView.swift in Sources */,
 				EC54AB742C88DD45004A1263 /* FavoriteTab.swift in Sources */,
 				EC54AB7F2C88EED5004A1263 /* RepositoriesManager.swift in Sources */,
-				EC54AB672C88D77A004A1263 /* Constants.swift in Sources */,
+				EC54AB672C88D77A004A1263 /* APIConstants.swift in Sources */,
 				EC54AB762C88DD45004A1263 /* RepositoriesTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 import SwiftUI
 struct FavoritesTab: View {
     @StateObject private var viewModel = FavoritesViewModel()
-
+    
     var body: some View {
         NavigationStack {
             VStack {

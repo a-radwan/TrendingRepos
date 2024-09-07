@@ -12,7 +12,7 @@ struct RepositoryRow: View {
     let repository: Repository
     
     private let imageSize: CGFloat = 50
-
+    
     var body: some View {
         HStack(alignment: .top) {
             if let avatarURL = repository.owner.avatarURL, let url = URL(string: avatarURL) {

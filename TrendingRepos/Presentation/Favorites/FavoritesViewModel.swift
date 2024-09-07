@@ -13,10 +13,10 @@ class FavoritesViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var searchText: String = ""
-
+    
     private let repositoriesManager = RepositoriesManager.shared
     private var cancellables = Set<AnyCancellable>()
-
+    
     
     var filteredFavorites: [Repository] {
         if searchText.isEmpty {
@@ -25,7 +25,7 @@ class FavoritesViewModel: ObservableObject {
             return favorites.filter { $0.name.localizedCaseInsensitiveContains(searchText) || $0.owner.login.localizedCaseInsensitiveContains(searchText) }
         }
     }
-
+    
     init() {
         repositoriesManager.$favorites
             .receive(on: DispatchQueue.main)
@@ -34,7 +34,7 @@ class FavoritesViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-
+    
     func loadFavorites() {
         favorites = repositoriesManager.favorites
     }

@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import CoreData
-import SwiftUI
 
 struct RepositorySearchResponse: Codable {
     let items: [Repository]
@@ -20,7 +18,16 @@ struct RepositorySearchResponse: Codable {
         case totalCount = "total_count"
         case incompleteResults = "incomplete_results"
     }
+}
 
+struct Owner: Codable {
+    let login: String
+    let avatarURL: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case login
+        case avatarURL = "avatar_url"
+    }
 }
 
 struct Repository: Codable, Identifiable {
@@ -54,16 +61,6 @@ struct Repository: Codable, Identifiable {
         htmlURL: "https://github.com/"
     )
 
-}
-
-struct Owner: Codable {
-    let login: String
-    let avatarURL: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case login
-        case avatarURL = "avatar_url"
-    }
 }
 
 extension Repository {
