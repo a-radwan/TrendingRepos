@@ -50,10 +50,16 @@ class RepositoriesViewModel: ObservableObject {
     private let pageSize = 30
     private var totalCount: Int = 0
     
+    private var didLoadInitialData = false
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
+        Task {
+            await loadRepositories()
+            didLoadInitialData = true
+        }
         setupSearchDebounce()
+
     }
     
     // Set up search text debouncing
@@ -63,7 +69,9 @@ class RepositoriesViewModel: ObservableObject {
             .removeDuplicates()
             .sink { [weak self] newSearchText in
                 guard let self = self else { return }
-                self.resetAndFetchData()
+                if didLoadInitialData {
+                    self.resetAndFetchData()
+                }
             }
             .store(in: &cancellables)
     }
@@ -79,7 +87,8 @@ class RepositoriesViewModel: ObservableObject {
     }
     
     func loadRepositories() async {
-        guard !isLoading, hasMoreData else { return }
+        print("loading")
+        guard !isLoading else { return }
         
         isLoading = true
         errorMessage = nil

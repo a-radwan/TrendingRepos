@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Kingfisher
-
 struct RepositoryRow: View {
     let repository: Repository
     
@@ -36,19 +35,15 @@ struct RepositoryRow: View {
                 Text(repository.description ?? "No description available.")
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                
-                HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                    Text("\(repository.stargazersCount)")
-                        .font(.subheadline)
-                }
+                    .lineLimit(3) // Limit to 3 lines
+                    .truncationMode(.tail)
             }
             .padding(.leading, 8)
         }
         .padding(.vertical, 5)
     }
 }
+
 
 #Preview {
     RepositoryRow(repository:Repository.sample)

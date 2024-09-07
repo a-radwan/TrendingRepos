@@ -34,7 +34,7 @@ struct RepositoryDetailsView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("\(repository.owner.login) / \(repository.name)")
                             .font(.title)
-                            .fontWeight(.bold)
+                            .fontWeight(.semibold)
                     }
                 }
                 
@@ -87,7 +87,7 @@ struct RepositoryDetailsView: View {
                 Button(action: {
                     viewModel.toggleFavorite(repository: repository) { result in
                         switch result {
-                        case .success(let isFavorite):
+                        case .success(_):
                             break
                         case .failure(let error):
                             print("Error toggling favorite: \(error)")
