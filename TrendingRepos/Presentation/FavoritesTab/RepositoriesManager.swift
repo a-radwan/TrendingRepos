@@ -45,7 +45,7 @@ class RepositoriesManager: ObservableObject {
             switch result {
             case .success:
                 self?.favorites.append(repository)
-                //                repository.isFavorite = true
+
             case .failure(let error):
                 print("Error adding to favorites: \(error)")
             }
@@ -58,8 +58,6 @@ class RepositoriesManager: ObservableObject {
             switch result {
             case .success:
                 self?.favorites.removeAll { $0.id == repository.id }
-                //                repository.isFavorite = false
-                print("removed : \(repository)")
                 
             case .failure(let error):
                 print("Error removing from favorites: \(error)")
