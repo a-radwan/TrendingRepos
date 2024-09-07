@@ -53,7 +53,10 @@ class RepositoriesViewModel: ObservableObject {
     private var didLoadInitialData = false
     private var cancellables: Set<AnyCancellable> = []
     
-    init() {
+    private let gitHubService: GitHubServiceProtocol
+
+    init(gitHubService: GitHubServiceProtocol = GitHubService.shared) {
+        self.gitHubService = gitHubService
         Task {
             await loadRepositories()
             didLoadInitialData = true
@@ -61,6 +64,7 @@ class RepositoriesViewModel: ObservableObject {
         setupSearchDebounce()
 
     }
+
     
     // Set up search text debouncing
     private func setupSearchDebounce() {
@@ -94,7 +98,7 @@ class RepositoriesViewModel: ObservableObject {
         errorMessage = nil
         
         do {
-            let response = try await GitHubService.shared.fetchRepositories(
+            let response = try await gitHubService.fetchRepositories(
                 searchText: searchText,
                 dateFilter: selectedDateFilter,
                 page: currentPage,
@@ -117,7 +121,7 @@ class RepositoriesViewModel: ObservableObject {
         
         isFetchingNextPage = true
         do {
-            let response = try await GitHubService.shared.fetchRepositories(
+            let response = try await gitHubService.fetchRepositories(
                 searchText: searchText,
                 dateFilter: selectedDateFilter,
                 page: currentPage,

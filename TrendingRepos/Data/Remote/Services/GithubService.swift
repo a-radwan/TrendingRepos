@@ -10,10 +10,25 @@ import Foundation
 
 import Foundation
 
-class GitHubService {
-    static let shared = GitHubService()
+protocol GitHubServiceProtocol {
+    func fetchRepositories(
+        searchText: String?,
+        dateFilter: DateFilter,
+        page: Int,
+        pageSize: Int
+    ) async throws -> RepositorySearchResponse
+}
+
+class GitHubService: GitHubServiceProtocol {
     
-    private init() {}
+    static let shared = GitHubService()
+        
+    private let networkManager: NetworkManagingProtocol
+    
+    init(networkManager: NetworkManagingProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
+
     
     func fetchRepositories(
         searchText: String? = nil,
@@ -22,7 +37,7 @@ class GitHubService {
         pageSize: Int = 30
     ) async throws -> RepositorySearchResponse {
         
-        let endPoint = "/search/repositories"
+        let endPoint = repositoriesEndPoint
         
         var queryParameter = "created:>\(dateFilter.queryDateParameter)"
         if let searchText = searchText, !searchText.isEmpty {
@@ -38,7 +53,7 @@ class GitHubService {
         ]
         
         do {
-            return try await NetworkManager.shared.request(endpoint: endPoint, parameters: parameters)
+            return try await networkManager.request(endpoint: endPoint, parameters: parameters)
         } catch {
             throw error
         }

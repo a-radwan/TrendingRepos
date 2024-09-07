@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC4BAE632C8CF6B200A68EB4 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BAE622C8CF6B200A68EB4 /* MockNetworkManager.swift */; };
+		EC4BAE652C8CF6D200A68EB4 /* GitHubServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BAE642C8CF6D200A68EB4 /* GitHubServiceTests.swift */; };
 		EC54AB672C88D77A004A1263 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB662C88D77A004A1263 /* APIConstants.swift */; };
 		EC54AB6A2C88DD3D004A1263 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB682C88DD3D004A1263 /* Repository.swift */; };
 		EC54AB742C88DD45004A1263 /* FavoriteTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB6B2C88DD45004A1263 /* FavoriteTab.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC4BAE622C8CF6B200A68EB4 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
+		EC4BAE642C8CF6D200A68EB4 /* GitHubServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubServiceTests.swift; sourceTree = "<group>"; };
 		EC54AB662C88D77A004A1263 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		EC54AB682C88DD3D004A1263 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		EC54AB6B2C88DD45004A1263 /* FavoriteTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTab.swift; sourceTree = "<group>"; };
@@ -258,6 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				ECE1D07F2C864D5000031AFB /* TrendingReposTests.swift */,
+				EC4BAE622C8CF6B200A68EB4 /* MockNetworkManager.swift */,
+				EC4BAE642C8CF6D200A68EB4 /* GitHubServiceTests.swift */,
 			);
 			path = TrendingReposTests;
 			sourceTree = "<group>";
@@ -431,7 +437,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC4BAE632C8CF6B200A68EB4 /* MockNetworkManager.swift in Sources */,
 				ECE1D0802C864D5000031AFB /* TrendingReposTests.swift in Sources */,
+				EC4BAE652C8CF6D200A68EB4 /* GitHubServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

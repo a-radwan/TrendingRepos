@@ -13,12 +13,22 @@ enum NetworkError: Error {
     case decodingError(Error)
 }
 
-class NetworkManager {
+protocol NetworkManagingProtocol {
+    func request<T: Decodable>(
+        endpoint: String,
+        parameters: [String: String]?
+    ) async throws -> T
+}
+
+
+class NetworkManager: NetworkManagingProtocol {
     static let shared = NetworkManager()
     
-    private let session = URLSession.shared
+    private let session: URLSession
     
-    private init() {}
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
     
     func request<T: Decodable>(
         endpoint: String,
