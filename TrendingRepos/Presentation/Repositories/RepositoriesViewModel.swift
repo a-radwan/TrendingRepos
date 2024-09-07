@@ -33,11 +33,7 @@ enum DateFilter: String, CaseIterable {
 }
 
 class RepositoriesViewModel: ObservableObject {
-    @Published var searchText: String = "" {
-        didSet {
-            resetAndFetchData()
-        }
-    }
+    @Published var searchText: String = ""
     @Published var selectedDateFilter: DateFilter = .lastWeek {
         didSet {
             resetAndFetchData()
@@ -56,7 +52,19 @@ class RepositoriesViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        loadRepositories()
+        setupSearchDebounce()
+    }
+    
+    // Set up search text debouncing
+    private func setupSearchDebounce() {
+        $searchText
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] newSearchText in
+                guard let self = self else { return }
+                self.resetAndFetchData()
+            }
+            .store(in: &cancellables)
     }
     
     private func resetAndFetchData() {
@@ -69,6 +77,7 @@ class RepositoriesViewModel: ObservableObject {
     }
     
     func loadRepositories() {
+
         guard !isLoading, hasMoreData else { return }
         
         isLoading = true
