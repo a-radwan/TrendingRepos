@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 
 
@@ -114,61 +115,6 @@ struct RepositoriesTab: View {
             .searchable(text: $viewModel.searchText)
             .navigationTitle("Trending")
         }
-    }
-}
-
-
-
-struct RepositoryRow: View {
-    let repository: Repository
-    
-    var body: some View {
-        HStack(alignment: .top) {
-            if let avatarURL = repository.owner.avatarURL {
-                AsyncImage(url: URL(string: avatarURL)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 50, height: 50)
-                        .clipShape(Circle())
-                } placeholder: {
-                    PlaceholderImage()
-                }
-            } else {
-                PlaceholderImage()
-            }
-            
-            VStack(alignment: .leading, spacing: 5) {
-                Text("\(repository.owner.login) / \(repository.name)")
-                    .font(.headline)
-                
-                Text(repository.description ?? "No description available.")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                
-                HStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                    Text("\(repository.stargazersCount)")
-                        .font(.subheadline)
-                }
-            }
-            .padding(.leading, 8)
-        }
-        .padding(.vertical, 5)
-    }
-}
-
-
-struct PlaceholderImage: View {
-    var body: some View {
-        
-        Image(systemName: "person.crop.circle")
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 50, height: 50)
-            .clipShape(Circle())
-            .foregroundColor(.gray)
     }
 }
 

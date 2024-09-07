@@ -19,6 +19,9 @@
 		EC54AB7F2C88EED5004A1263 /* RepositoriesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB7E2C88EED5004A1263 /* RepositoriesManager.swift */; };
 		EC54AB832C893C37004A1263 /* RepositoryDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB822C893C37004A1263 /* RepositoryDetailsViewModel.swift */; };
 		EC54AB892C8A4FD1004A1263 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB882C8A4FD1004A1263 /* FavoritesViewModel.swift */; };
+		EC54AB8C2C8CA59C004A1263 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EC54AB8B2C8CA59C004A1263 /* Kingfisher */; };
+		EC54AB8E2C8CADAD004A1263 /* CircularPlaceholderImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB8D2C8CADAD004A1263 /* CircularPlaceholderImage.swift */; };
+		EC54AB902C8CB159004A1263 /* RepositoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC54AB8F2C8CB159004A1263 /* RepositoryRowView.swift */; };
 		ECE1D06A2C864D4F00031AFB /* TrendingReposApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE1D0692C864D4F00031AFB /* TrendingReposApp.swift */; };
 		ECE1D06E2C864D5000031AFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECE1D06D2C864D5000031AFB /* Assets.xcassets */; };
 		ECE1D0712C864D5000031AFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECE1D0702C864D5000031AFB /* Preview Assets.xcassets */; };
@@ -59,6 +62,8 @@
 		EC54AB7E2C88EED5004A1263 /* RepositoriesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesManager.swift; sourceTree = "<group>"; };
 		EC54AB822C893C37004A1263 /* RepositoryDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsViewModel.swift; sourceTree = "<group>"; };
 		EC54AB882C8A4FD1004A1263 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		EC54AB8D2C8CADAD004A1263 /* CircularPlaceholderImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularPlaceholderImage.swift; sourceTree = "<group>"; };
+		EC54AB8F2C8CB159004A1263 /* RepositoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryRowView.swift; sourceTree = "<group>"; };
 		ECE1D0662C864D4F00031AFB /* TrendingRepos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrendingRepos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE1D0692C864D4F00031AFB /* TrendingReposApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingReposApp.swift; sourceTree = "<group>"; };
 		ECE1D06D2C864D5000031AFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC54AB8C2C8CA59C004A1263 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,11 +131,13 @@
 		EC54AB722C88DD45004A1263 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				EC54AB702C88DD45004A1263 /* RepositoriesViewModel.swift */,
+				EC54AB8F2C8CB159004A1263 /* RepositoryRowView.swift */,
 				EC54AB6F2C88DD45004A1263 /* RepositoriesTab.swift */,
 				EC54AB7E2C88EED5004A1263 /* RepositoriesManager.swift */,
-				EC54AB702C88DD45004A1263 /* RepositoriesViewModel.swift */,
-				EC54AB712C88DD45004A1263 /* RepositoryDetailsView.swift */,
 				EC54AB822C893C37004A1263 /* RepositoryDetailsViewModel.swift */,
+				EC54AB712C88DD45004A1263 /* RepositoryDetailsView.swift */,
+				EC54AB8D2C8CADAD004A1263 /* CircularPlaceholderImage.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -231,6 +239,9 @@
 			dependencies = (
 			);
 			name = TrendingRepos;
+			packageProductDependencies = (
+				EC54AB8B2C8CA59C004A1263 /* Kingfisher */,
+			);
 			productName = TrendingRepos;
 			productReference = ECE1D0662C864D4F00031AFB /* TrendingRepos.app */;
 			productType = "com.apple.product-type.application";
@@ -303,6 +314,9 @@
 				Base,
 			);
 			mainGroup = ECE1D05D2C864D4F00031AFB;
+			packageReferences = (
+				EC54AB8A2C8CA4FA004A1263 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = ECE1D0672C864D4F00031AFB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -349,12 +363,14 @@
 				EC54AB832C893C37004A1263 /* RepositoryDetailsViewModel.swift in Sources */,
 				EC54AB7C2C88DD5A004A1263 /* GithubService.swift in Sources */,
 				ECE1D0732C864D5000031AFB /* Persistence.swift in Sources */,
+				EC54AB8E2C8CADAD004A1263 /* CircularPlaceholderImage.swift in Sources */,
 				EC54AB752C88DD45004A1263 /* HomeView.swift in Sources */,
 				EC54AB772C88DD45004A1263 /* RepositoriesViewModel.swift in Sources */,
 				EC54AB6A2C88DD3D004A1263 /* Repository.swift in Sources */,
 				ECE1D0762C864D5000031AFB /* TrendingRepos.xcdatamodeld in Sources */,
 				ECE1D06A2C864D4F00031AFB /* TrendingReposApp.swift in Sources */,
 				EC54AB7D2C88DD5A004A1263 /* NetworkManager.swift in Sources */,
+				EC54AB902C8CB159004A1263 /* RepositoryRowView.swift in Sources */,
 				EC54AB782C88DD45004A1263 /* RepositoryDetailsView.swift in Sources */,
 				EC54AB742C88DD45004A1263 /* FavoriteTab.swift in Sources */,
 				EC54AB7F2C88EED5004A1263 /* RepositoriesManager.swift in Sources */,
@@ -683,6 +699,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EC54AB8A2C8CA4FA004A1263 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EC54AB8B2C8CA59C004A1263 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EC54AB8A2C8CA4FA004A1263 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		ECE1D0742C864D5000031AFB /* TrendingRepos.xcdatamodeld */ = {

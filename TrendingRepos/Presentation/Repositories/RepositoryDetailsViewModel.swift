@@ -15,17 +15,17 @@ class RepositoryDetailsViewModel: ObservableObject {
     init(isFavorite: Bool = false) {
         self.isFavorite = isFavorite
     }
-
+    
     func checkIfFavorite(repository: Repository) {
         isFavorite = repositoriesManager.isFavorite(repository: repository);
     }
     
     func toggleFavorite(repository: Repository, completion: @escaping (Result<Bool, Error>) -> Void) {
         
-
+        
         if isFavorite {
             self.isFavorite = false
-
+            
             repositoriesManager.removeFromFavorites(repository: repository) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
@@ -39,7 +39,7 @@ class RepositoryDetailsViewModel: ObservableObject {
             }
         } else {
             self.isFavorite = true
-
+            
             repositoriesManager.addToFavorites(repository: repository) { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {

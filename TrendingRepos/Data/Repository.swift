@@ -41,6 +41,19 @@ struct Repository: Codable, Identifiable {
         case createdAt = "created_at"
         case htmlURL = "html_url"
     }
+    
+    static let sample = Repository(
+        id: 1,
+        owner: Owner(login: "Julia", avatarURL: nil),
+        name: "SampleRepo",
+        description: "This is a sample repository.",
+        stargazersCount: 123,
+        forksCount: 10,
+        language: "Swift",
+        createdAt: Date(),
+        htmlURL: "https://github.com/"
+    )
+
 }
 
 struct Owner: Codable {

@@ -6,37 +6,29 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct RepositoryDetailsView: View {
     var repository: Repository
     @ObservedObject var viewModel: RepositoryDetailsViewModel
     
+    private let imageSize: CGFloat = 100
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 HStack {
-                    if let avatarURL = repository.owner.avatarURL {
-                        AsyncImage(url: URL(string: avatarURL)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .clipShape(Circle())
-                        } placeholder: {
-                            Image(systemName: "person.crop.circle")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .clipShape(Circle())
-                                .foregroundColor(.gray)
-                        }
-                    } else {
-                        Image(systemName: "person.crop.circle")
+                    if let avatarURL = repository.owner.avatarURL, let url = URL(string: avatarURL) {
+                        KFImage(url)
+                            .placeholder {
+                                CircularPlaceholderImage(diameter: imageSize)
+                            }
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 100, height: 100)
+                            .frame(width: imageSize, height: imageSize)
                             .clipShape(Circle())
-                            .foregroundColor(.gray)
+                    } else {
+                        CircularPlaceholderImage(diameter: imageSize)
                     }
                     
                     VStack(alignment: .leading, spacing: 8) {
@@ -113,22 +105,9 @@ struct RepositoryDetailsView: View {
     }
 }
 
-
 #Preview {
-    
-    RepositoryDetailsView(
-        repository: Repository(
-            id: 1,
-            owner: Owner(login: "johnDoe", avatarURL: "https://via.placeholder.com/150"),
-            name: "SampleRepo",
-            description: "This is a sample repository.",
-            stargazersCount: 123,
-            forksCount: 10,
-            language: "Swift",
-            createdAt: Date(),
-            htmlURL: "https://github.com/johnDoe/SampleRepo"
-        ), viewModel: RepositoryDetailsViewModel(isFavorite: false)
-    )
+        
+    RepositoryDetailsView(repository:Repository.sample , viewModel: RepositoryDetailsViewModel(isFavorite: false))
 }
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
