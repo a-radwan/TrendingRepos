@@ -156,6 +156,7 @@
 		EC54AB7B2C88DD5A004A1263 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EC54AB662C88D77A004A1263 /* Constants.swift */,
 				EC54AB792C88DD5A004A1263 /* GithubService.swift */,
 				EC54AB7A2C88DD5A004A1263 /* NetworkManager.swift */,
 			);
@@ -189,7 +190,6 @@
 				EC54AB732C88DD45004A1263 /* Presentation */,
 				EC54AB7B2C88DD5A004A1263 /* Services */,
 				ECE1D0692C864D4F00031AFB /* TrendingReposApp.swift */,
-				EC54AB662C88D77A004A1263 /* Constants.swift */,
 				ECE1D06D2C864D5000031AFB /* Assets.xcassets */,
 				ECE1D0722C864D5000031AFB /* Persistence.swift */,
 				ECE1D0742C864D5000031AFB /* TrendingRepos.xcdatamodeld */,

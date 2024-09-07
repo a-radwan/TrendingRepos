@@ -21,26 +21,7 @@ class RepositoriesManager: ObservableObject {
     
     init() {
         fetchFavorites()
-        //        fetchRepositories()
     }
-    
-    // Fetch repositories from API and update Core Data
-    //    func fetchRepositories(searchText: String? = nil, dateFilter: DateFilter) {
-    //        gitHubService.fetchRepositories(searchText: searchText, dateFilter: dateFilter) { [weak self] result in
-    //            switch result {
-    //            case .success(var repositories):
-    ////                let favoriteIds = Set(arrayLiteral: self?.favorites.map { $0.id })
-    ////                for index in repositories.indices {
-    ////                    repositories[index].isFavorite = favoriteIds.contains(where: repositories[index].id)
-    ////                }
-    //
-    //                self?.repositories = repositories
-    ////                self?.updateFavorites(repositories: repositories)
-    //            case .failure(let error):
-    //                print("Error fetching repositories: \(error)")
-    //            }
-    //        }
-    //    }
     
     // Fetch favorites from Core Data
     func fetchFavorites() {

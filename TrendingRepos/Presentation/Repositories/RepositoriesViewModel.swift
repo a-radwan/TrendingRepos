@@ -32,6 +32,7 @@ enum DateFilter: String, CaseIterable {
     }
 }
 
+@MainActor
 class RepositoriesViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var selectedDateFilter: DateFilter = .lastWeek {
@@ -72,53 +73,56 @@ class RepositoriesViewModel: ObservableObject {
         currentPage = 1
         hasMoreData = true
         totalCount = 0
-        loadRepositories()
-        
+        Task {
+            await loadRepositories()
+        }
     }
     
-    func loadRepositories() {
-
+    func loadRepositories() async {
         guard !isLoading, hasMoreData else { return }
         
         isLoading = true
         errorMessage = nil
         
-        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: currentPage, pageSize: pageSize) { [weak self] result in
-            guard let self = self else { return }
-            self.isLoading = false
-            
-            switch result {
-            case .success(let response):
-                self.repositories.append(contentsOf: response.items)
-                self.hasMoreData = repositories.count == self.pageSize
-                self.totalCount = response.totalCount
-                self.currentPage += 1
-            case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.hasMoreData = false
-            }
+        do {
+            let response = try await GitHubService.shared.fetchRepositories(
+                searchText: searchText,
+                dateFilter: selectedDateFilter,
+                page: currentPage,
+                pageSize: pageSize
+            )
+            repositories.append(contentsOf: response.items)
+            hasMoreData = repositories.count < response.totalCount
+            totalCount = response.totalCount
+            currentPage += 1
+        } catch {
+            errorMessage = error.localizedDescription
+            hasMoreData = false
         }
+        
+        isLoading = false
     }
     
-    func fetchNextPage() {
+    func fetchNextPage() async {
         guard !isFetchingNextPage, hasMoreData else { return }
         
         isFetchingNextPage = true
-        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: currentPage, pageSize: pageSize) { [weak self] result in
-            guard let self = self else { return }
-            self.isFetchingNextPage = false
-            
-            switch result {
-            case .success(let response):
-                self.repositories.append(contentsOf: response.items)
-                self.totalCount = response.totalCount
-                self.hasMoreData = self.repositories.count < self.totalCount
-                self.currentPage += 1
-            case .failure(let error):
-                //Todo: handle faild to load the next page/
-                print("Error fetching next page: \(error)")
-                break;
-            }
+        do {
+            let response = try await GitHubService.shared.fetchRepositories(
+                searchText: searchText,
+                dateFilter: selectedDateFilter,
+                page: currentPage,
+                pageSize: pageSize
+            )
+            repositories.append(contentsOf: response.items)
+            totalCount = response.totalCount
+            hasMoreData = repositories.count < totalCount
+            currentPage += 1
+        } catch {
+            //Todo: handle faild to load the next page
+            print("Error fetching next page: \(error)")
         }
+        
+        isFetchingNextPage = false
     }
 }

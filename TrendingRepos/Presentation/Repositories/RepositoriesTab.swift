@@ -47,7 +47,10 @@ struct RepositoriesTab: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom)
                         Button(action: {
-                            viewModel.loadRepositories()
+                            Task {
+                                await viewModel.loadRepositories()
+                            }
+                            
                         }) {
                             Text("Retry")
                                 .foregroundColor(.blue)
@@ -85,7 +88,9 @@ struct RepositoriesTab: View {
                             .onAppear {
                                 // Load next page when the last item appears
                                 if index == viewModel.repositories.count - 1 {
-                                    viewModel.fetchNextPage()
+                                    Task {
+                                        await viewModel.fetchNextPage()
+                                    }
                                 }
                             }
                         }

@@ -8,17 +8,20 @@
 import Foundation
 
 
+import Foundation
+
 class GitHubService {
     static let shared = GitHubService()
     
     private init() {}
     
-    func fetchRepositories(searchText: String? = nil,
-                           dateFilter: DateFilter,
-                           page: Int = 1,
-                           pageSize: Int = 30,
-                           completion: @escaping (Result<RepositorySearchResponse, NetworkError>) -> Void) {
-
+    func fetchRepositories(
+        searchText: String? = nil,
+        dateFilter: DateFilter,
+        page: Int = 1,
+        pageSize: Int = 30
+    ) async throws -> RepositorySearchResponse {
+        
         let endPoint = "/search/repositories"
         
         var queryParameter = "created:>\(dateFilter.queryDateParameter)"
@@ -34,16 +37,10 @@ class GitHubService {
             "per_page": String(pageSize)
         ]
         
-        NetworkManager.shared.request(endpoint: endPoint,
-                                      parameters: parameters) { (result: Result<RepositorySearchResponse, NetworkError>) in
-            switch result {
-            case .success(let response):
-                completion(.success(response))
-            case .failure(let error):
-                completion(.failure(error))
-            }
+        do {
+            return try await NetworkManager.shared.request(endpoint: endPoint, parameters: parameters)
+        } catch {
+            throw error
         }
     }
 }
-
-

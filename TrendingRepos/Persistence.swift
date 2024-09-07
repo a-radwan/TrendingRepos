@@ -10,24 +10,6 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
     
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        return result
-    }()
-    
     let container: NSPersistentContainer
     
     init(inMemory: Bool = false) {
@@ -63,24 +45,23 @@ struct PersistenceController {
                 
                 do {
                     let results = try context.fetch(fetchRequest)
-                    if let existingRepo = results.first {
-                        //                        existingRepo.isFavorite = true
-                    } else {
-                        let newRepo = RepositoryEntity(context: context)
-                        newRepo.id = repo.id
-                        newRepo.name = repo.name
-                        newRepo.repoDescription = repo.description
-                        newRepo.stargazersCount = Int32(repo.stargazersCount)
-                        newRepo.forksCount = Int32(repo.forksCount)
-                        newRepo.language = repo.language
-                        newRepo.createdAt = repo.createdAt
-                        newRepo.htmlURL = repo.htmlURL
-                        newRepo.ownerLogin = repo.owner.login
-                        newRepo.ownerAvatarURL = repo.owner.avatarURL
-                        //                        newRepo.isFavorite = true
-                        try context.save()
-                        
+                    guard results.first == nil else {
+                        completion(.success(()))
+                        return;
                     }
+                    let newRepo = RepositoryEntity(context: context)
+                    newRepo.id = repo.id
+                    newRepo.name = repo.name
+                    newRepo.repoDescription = repo.description
+                    newRepo.stargazersCount = Int32(repo.stargazersCount)
+                    newRepo.forksCount = Int32(repo.forksCount)
+                    newRepo.language = repo.language
+                    newRepo.createdAt = repo.createdAt
+                    newRepo.htmlURL = repo.htmlURL
+                    newRepo.ownerLogin = repo.owner.login
+                    newRepo.ownerAvatarURL = repo.owner.avatarURL
+                    try context.save()
+                    
                     completion(.success(()))
                 } catch {
                     completion(.failure(error))
@@ -110,7 +91,6 @@ struct PersistenceController {
             }
         }
     }
-    
     
     // Fetch favorite repositories
     func fetchFavoriteRepositories(completion: @escaping (Result<[Repository], Error>) -> Void) {
