@@ -37,7 +37,7 @@ struct RepositoriesTab: View {
                     VStack {
                         Image(systemName: "exclamationmark.triangle")
                             .font(.system(size: 50))
-                            .foregroundColor(.red)
+                            .foregroundColor(.gray)
                         Text("Failed to load data.")
                             .font(.headline)
                             .padding()

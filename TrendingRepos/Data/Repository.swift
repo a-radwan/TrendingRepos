@@ -11,8 +11,17 @@ import SwiftUI
 
 struct RepositorySearchResponse: Codable {
     let items: [Repository]
-}
+    let totalCount: Int
+    let incompleteResults: Bool
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case items
+        case totalCount = "total_count"
+        case incompleteResults = "incomplete_results"
+    }
 
+}
 
 struct Repository: Codable, Identifiable {
     let id: Int32
@@ -44,26 +53,7 @@ struct Owner: Codable {
     }
 }
 
-extension RepositoryEntity {
-//    func update(from dto: Repository) {
-//        self.id = Int32(dto.id)
-//        self.name = dto.name
-//        self.repoDescription = dto.description
-//        self.stargazersCount = Int32(dto.stargazersCount)
-//        self.forksCount = Int32(dto.forksCount)
-//        self.language = dto.language
-//        self.createdAt = dto.createdAt
-//        self.htmlURL = dto.htmlURL
-//        self.ownerLogin = dto.owner.login
-//        self.ownerAvatarURL = dto.owner.avatarURL
-//    }
-}
 extension Repository {
-//    func toCoreDataEntity(in context: NSManagedObjectContext) -> RepositoryEntity {
-//        let repositoryEntity = RepositoryEntity(context: context)
-//        repositoryEntity.update(from: self)
-//        return repositoryEntity
-//    }
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         

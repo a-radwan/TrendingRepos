@@ -38,7 +38,7 @@ class RepositoriesViewModel: ObservableObject {
             resetAndFetchData()
         }
     }
-    @Published var selectedDateFilter: DateFilter = .lastDay {
+    @Published var selectedDateFilter: DateFilter = .lastWeek {
         didSet {
             resetAndFetchData()
         }
@@ -49,8 +49,9 @@ class RepositoriesViewModel: ObservableObject {
     @Published var hasMoreData: Bool = true
     @Published var errorMessage: String? = nil
     
-    private var page = 1
-    private let perPage = 20
+    private var currentPage = 1
+    private let pageSize = 30
+    private var totalCount: Int = 0
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -60,9 +61,11 @@ class RepositoriesViewModel: ObservableObject {
     
     private func resetAndFetchData() {
         repositories.removeAll()
-        page = 1
+        currentPage = 1
         hasMoreData = true
+        totalCount = 0
         loadRepositories()
+        
     }
     
     func loadRepositories() {
@@ -71,15 +74,16 @@ class RepositoriesViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: page, perPage: perPage) { [weak self] result in
+        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: currentPage, pageSize: pageSize) { [weak self] result in
             guard let self = self else { return }
             self.isLoading = false
             
             switch result {
-            case .success(let repositories):
-                self.repositories.append(contentsOf: repositories)
-                self.hasMoreData = repositories.count == self.perPage
-                self.page += 1
+            case .success(let response):
+                self.repositories.append(contentsOf: response.items)
+                self.hasMoreData = repositories.count == self.pageSize
+                self.totalCount = response.totalCount
+                self.currentPage += 1
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.hasMoreData = false
@@ -91,17 +95,20 @@ class RepositoriesViewModel: ObservableObject {
         guard !isFetchingNextPage, hasMoreData else { return }
         
         isFetchingNextPage = true
-        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: page, perPage: perPage) { [weak self] result in
+        GitHubService.shared.fetchRepositories(searchText: searchText, dateFilter: selectedDateFilter, page: currentPage, pageSize: pageSize) { [weak self] result in
             guard let self = self else { return }
             self.isFetchingNextPage = false
             
             switch result {
-            case .success(let repositories):
-                self.repositories.append(contentsOf: repositories)
-                self.hasMoreData = repositories.count == self.perPage
-                self.page += 1
+            case .success(let response):
+                self.repositories.append(contentsOf: response.items)
+                self.totalCount = response.totalCount
+                self.hasMoreData = self.repositories.count < self.totalCount
+                self.currentPage += 1
             case .failure(let error):
-                self.hasMoreData = true
+                //Todo: handle faild to load the next page/
+                print("Error fetching next page: \(error)")
+                break;
             }
         }
     }
