@@ -22,9 +22,12 @@ struct FavoritesTab: View {
                 } else if viewModel.filteredFavorites.isEmpty {
                     Spacer()
                     VStack {
-                        Image(systemName: "folder.fill")
-                            .font(.system(size: 50))
+                        Image(uiImage: UIImage(named: "github-mark")?.resized(toWidth: 50) ?? UIImage())
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
                             .foregroundColor(.gray)
+                        
                         if viewModel.searchText.isEmpty {
                             Text("No favorites found.")
                                 .font(.headline)

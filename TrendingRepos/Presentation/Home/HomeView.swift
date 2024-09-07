@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct HomeView: View {
+    let iconSize = 24.0
+    
     var body: some View {
         TabView {
             RepositoriesTab()
                 .tabItem {
-                    Image(systemName: "folder")
+                    Image(uiImage: UIImage(named: "github-mark")?.resized(toWidth: iconSize) ?? UIImage())
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: iconSize, height: iconSize)
                     Text("Trending")
                 }
             
             FavoritesTab()
                 .tabItem {
                     Image(systemName: "heart")
+                        .frame(width: iconSize, height: iconSize)
                     Text("Favorites")
                 }
         }
     }
 }
+
+
 #Preview {
     HomeView()
 }
